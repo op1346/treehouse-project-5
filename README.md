@@ -1,2 +1,2 @@
 # treehouse-project-5
-This project is creating an app for a fictional company called the Awesome Startup. The app uses a Random User Generator API (https://randomuser.me/).
+This project is creating an app for a fictional company called the Awesome Startup. The app uses a Random User Generator API (https://randomuser.me/). The main goal of this project is to implement an API correctly.
