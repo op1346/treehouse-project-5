@@ -1,5 +1,5 @@
 //fetching data from API
-fetch("https://randomuser.me/api/?results=12")
+fetch("https://randomuser.me/api/?results=12&nat=us")
   .then(response => response.json())
   .then(data => galleryMarkup(data.results))
   .catch(error => {
@@ -31,20 +31,20 @@ function galleryMarkup(users) {
   });
 
   const userCardButton = document.querySelectorAll(".card");
-  userCardButton.map(card => {
-    card.addEventListener('click', (e) => {
-      if (e.target === card || card.contains(e.target)) {
-          modalMarkup(cards)
-      }
-  });
-  });
-
+  for (let i = 0; i < userCardButton.length; i++) {
+    userCardButton[i].addEventListener('click', (e) => {
+        if (e.target === userCardButton[i] || userCardButton[i].contains(e.target)) {
+            modalMarkup(users, i)
+        }
+    });
+  };
 }
 
 //adding the card view
 function modalMarkup(users, index) {
   const user = users[index];
   const modalContainer = document.createElement("div");
+  modalContainer.setAttribute("class", "modal-container");
   const modal =
     `
     <div class="modal">
@@ -55,11 +55,19 @@ function modalMarkup(users, index) {
         <p class="modal-text">${user.email}</p>
         <p class="modal-text cap">${user.location.city}</p>
         <hr>
-        <p class="modal-text">(555) 555-5555</p>
-        <p class="modal-text">123 Portland Ave., Portland, OR 97204</p>
-        <p class="modal-text">Birthday: 10/21/2015</p>
+        <p class="modal-text">${user.phone}</p>
+        <p class="modal-text">${user.location.street.number} ${user.location.street.name}, ${user.location.city}, ${user.location.state} ${user.location.postcode}</p>
+        <p class="modal-text">Birthday: ${user.dob.date.substr(0, 10)}</p>
       </div>
     </div>`;
-  modalContainer.setAttribute("class", "modal-container");
+  modalContainer.innerHTML = modal;
+  document.body.prepend(modalContainer);
+  const close = document.getElementById("modal-close-btn");
+  modalContainer.addEventListener("click", (e) => {
+    if (e.target === close || close.contains(e.target)) {
+      document.body.removeChild(modalContainer);
+    }
+  })
 }
+
 
