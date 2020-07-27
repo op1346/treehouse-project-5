@@ -46,8 +46,7 @@ function modalMarkup(users, index) {
   const modalContainer = document.createElement("div");
   modalContainer.setAttribute("class", "modal-container");
   const modal =
-    `
-    <div class="modal">
+    `<div class="modal">
       <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
       <div class="modal-info-container">
         <img class="modal-img" src="${user.picture.large}" alt="profile picture">
